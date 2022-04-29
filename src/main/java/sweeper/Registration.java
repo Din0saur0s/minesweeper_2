@@ -58,24 +58,21 @@ public class Registration extends JFrame {
 
 
     void writeToRecords(String name, String rec) {
-        JSONObject players = new JSONObject();
-        players.put("firstName", name);
-        players.put("records", rec);
-        JSONObject player = new JSONObject();
-        player.put("player", players);
+        try(FileWriter writer = new FileWriter("G://records.txt", true))
+        {
+            // запись всей строки
+            String text = name+" "+rec+'\n';
+            writer.write(text);
+            // запись по символам
 
-        JSONArray playerList = new JSONArray();
-        playerList.add(player);
-
-        try (FileWriter file = new FileWriter("G://records.json",true)) {
-            //We can write any JSONArray or JSONObject instance to the file
-            file.write(playerList.toJSONString());
-            file.flush();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            writer.flush();
         }
+        catch(IOException ex){
+
+            System.out.println(ex.getMessage());
     }
+    }
+
 
 
     public String points(int closedBoxes)
