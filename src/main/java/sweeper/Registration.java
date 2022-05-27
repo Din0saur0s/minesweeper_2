@@ -21,6 +21,7 @@ public class Registration extends JFrame {
     public JTextField name;
 
     public Registration() {
+
         setTitle("Регистрация");
         setResizable(false);
         setVisible(false);
@@ -44,7 +45,7 @@ public class Registration extends JFrame {
         add(pnl);
         btn.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
-                String textFieldValue = name.getText();
+                String textFieldValue=name.getText();
                 writeToRecords(textFieldValue, rec);
             }
         });
@@ -58,10 +59,12 @@ public class Registration extends JFrame {
 
 
     void writeToRecords(String name, String rec) {
-        try(FileWriter writer = new FileWriter("G://records.txt", true))
+        try(FileWriter writer = new FileWriter("records.txt", true))
         {
             // запись всей строки
-            String text = name+" "+rec+'\n';
+            byte bytes[] = name.getBytes("ISO-8859-1");
+            String text_h = new String(bytes, "Windows-1251");
+            String text = text_h+" "+rec+'\n';
             writer.write(text);
             // запись по символам
 
