@@ -61,10 +61,16 @@ public class Registration extends JFrame {
     void writeToRecords(String name, String rec) {
         try(FileWriter writer = new FileWriter("records.txt", true))
         {
+            String state="Lost";
+            if (Integer.valueOf(rec)>=91)
+                state="Won";
+
             // запись всей строки
             byte bytes[] = name.getBytes("ISO-8859-1");
             String text_h = new String(bytes, "Windows-1251");
-            String text = text_h+" "+rec+'\n';
+
+            String text = text_h+" "+rec+" "+state+'\n';
+
             writer.write(text);
             // запись по символам
 
